@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Personal essay</title>
+  
+  <subtitle>个人记录</subtitle>
+  <link href="https://834810071.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://834810071.github.io/"/>
+  <updated>2020-12-04T09:31:35.013Z</updated>
+  <id>https://834810071.github.io/</id>
+  
+  <author>
+    <name>20152021</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ssm + springboot 跨域问题记录</title>
+    <link href="https://834810071.github.io/2020/12/04/ssm-springboot-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    <id>https://834810071.github.io/2020/12/04/ssm-springboot-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-12-04T07:56:39.000Z</published>
+    <updated>2020-12-04T09:31:35.013Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;springboot-服务端解决跨域问题&quot;&gt;&lt;a href=&quot;#springboot-服务端解决跨域问题&quot; class=&quot;headerlink&quot; title=&quot;springboot 服务端解决跨域问题&quot;&gt;&lt;/a&gt;springboot 服务端解决跨域问题&lt;/h3&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; org.springframework.context.annotation.Configuration;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; org.springframework.web.servlet.config.annotation.CorsRegistry;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; org.springframework.web.servlet.config.annotation.WebMvcConfigurer;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;@Configuration&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;WebMvcConfig&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;WebMvcConfigurer&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;addCorsMappings&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(CorsRegistry registry)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        registry.addMapping(&lt;span class=&quot;string&quot;&gt;&amp;quot;/**&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                .allowedOrigins(&lt;span class=&quot;string&quot;&gt;&amp;quot;*&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                .allowedMethods(&lt;span class=&quot;string&quot;&gt;&amp;quot;*&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                .allowedHeaders(&lt;span class=&quot;string&quot;&gt;&amp;quot;*&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                .allowCredentials(&lt;span class=&quot;keyword&quot;&gt;true&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;ssm-tomcat-解决跨域问题&quot;&gt;&lt;a href=&quot;#ssm-tomcat-解决跨域问题&quot; class=&quot;headerlink&quot; title=&quot;ssm + tomcat 解决跨域问题&quot;&gt;&lt;/a&gt;ssm + tomcat 解决跨域问题&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="java web" scheme="https://834810071.github.io/categories/java-web/"/>
+    
+    
+    <category term="java web" scheme="https://834810071.github.io/tags/java-web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://834810071.github.io/2020/12/04/hello-world/"/>
+    <id>https://834810071.github.io/2020/12/04/hello-world/</id>
+    <published>2020-12-04T07:52:38.965Z</published>
+    <updated>2020-12-04T08:09:04.450Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>

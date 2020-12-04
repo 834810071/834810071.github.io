@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/12/04/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="常用的hexo命令"><a href="#常用的hexo命令" class="headerlink" title="常用的hexo命令"></a>常用的hexo命令</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">&quot;postName&quot;</span> <span class="comment">#新建文章</span></span><br><span class="line">hexo new page <span class="string">&quot;pageName&quot;</span> <span class="comment">#新建页面</span></span><br><span class="line">hexo generate <span class="comment">#生成静态页面至public目录</span></span><br><span class="line">hexo server <span class="comment">#开启预览访问端口（默认端口4000，&#x27;ctrl + c&#x27;关闭server）</span></span><br><span class="line">hexo deploy <span class="comment">#部署到GitHub</span></span><br><span class="line">hexo <span class="built_in">help</span>  <span class="comment"># 查看帮助</span></span><br><span class="line">hexo version  <span class="comment">#查看Hexo的版本</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure>
+
+<h4 id="组合命令"><a href="#组合命令" class="headerlink" title="组合命令"></a>组合命令</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s -g <span class="comment">#生成并本地预览</span></span><br><span class="line">hexo d -g <span class="comment">#生成并上传</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h4><p><a href="https://juejin.cn/post/6844903887732736007">hexo在GitHub上搭建个人博客（详细教程）</a></p>
+<p><a href="https://blog.csdn.net/heimu24/article/details/81210640">hexo个人博客：换了电脑怎么办</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>ssm + springboot 跨域问题记录</title>
+    <url>/2020/12/04/ssm-springboot-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h3 id="springboot-服务端解决跨域问题"><a href="#springboot-服务端解决跨域问题" class="headerlink" title="springboot 服务端解决跨域问题"></a>springboot 服务端解决跨域问题</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMvcConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>)</span><br><span class="line">                .allowedOrigins(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">                .allowedMethods(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">                .allowedHeaders(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ssm-tomcat-解决跨域问题"><a href="#ssm-tomcat-解决跨域问题" class="headerlink" title="ssm + tomcat 解决跨域问题"></a>ssm + tomcat 解决跨域问题</h3><a id="more"></a>
+
+<h4 id="tomcat配置"><a href="#tomcat配置" class="headerlink" title="tomcat配置"></a>tomcat配置</h4><ol>
+<li>web.xml 过滤配置<br>打开tomcat安装目录的conf目录，打开web.xml文件，然后在此文件的中间位置，大概460多行附近，粘贴如下代码到此文件<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CORS<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>com.thetransactioncompany.cors.CORSFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>cors.allowOrigin<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>*<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>cors.supportedMethods<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>GET,POST,HEAD,PUT,DELETE<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>cors.supportedHeaders<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>Accept,Origin,X-Requested-With,Content-Type,Last-Modified<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>cors.exposedHeaders<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>Set-Cookie<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>cors.supportsCredentials<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CORS<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span> </span><br></pre></td></tr></table></figure></li>
+<li>lib放入jar包:cors-filter-1.7.jar和java-property-utils-1.9.1.jar</li>
+</ol>
+<ol start="3">
+<li>打开谷歌浏览器快捷方式的属性面板，然后在【目标】这个属性之后跟下面的代码：<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">--args --disable-web-security --user-data-dir</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="idea-tomcat-配置项目注意点"><a href="#idea-tomcat-配置项目注意点" class="headerlink" title="idea tomcat 配置项目注意点"></a>idea tomcat 配置项目注意点</h3><ol>
+<li><p><img src="/2020/12/04/ssm-springboot-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/0.png" alt="Lena"></p>
+<p>【Run/Debug Configurations】 -&gt; Deploment -&gt; Application context: 设置为 / (如果项目名字为空的话)</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java web</category>
+      </categories>
+      <tags>
+        <tag>java web</tag>
+      </tags>
+  </entry>
+</search>
