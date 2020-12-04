@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
+title: Personal essay
+subtitle: '个人记录'
+description: '只是改变命运'
 keywords:
-author: John Doe
-language: en
+author: 20152021
+language: zh-Hans
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: https://834810071.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -41,7 +41,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -98,7 +98,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: yilia
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -107,6 +107,42 @@ deploy:
   repository: https://github.com/834810071/834810071.github.io.git
   branch: master
 
+# 自己另外添加的功能
+#1.baidu_analytics
+baidu_analytics: 8759f43af3e04f8088e92ff251867945
 
+#2.站内搜索 Local Search  添加百度/谷歌/本地 自定义站点内容搜索。  需在站点的根目录下执行以下命令：$      npm install hexo-generator-searchdb --save
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
 
+#3.Feed 订阅
+# 需安装插件：npm install hexo-generator-feed --save
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+ 
+#4.自动生成sitemap  SEO推广,需执行以下命令，安装插件npm install hexo-generator-sitemap --save
+sitemap:
+path: sitemap.xml
+baidusitemap:
+    path: baidusitemap.xml  
 
+#5.内容分享服务
+# JiaThis 分享服务
+jiathis: true
+# 百度分享服务
+baidushare: true
+# 多说分享服务
+duoshuo_share: true
+duoshuo_hotartical: true  # 多说热评文章 true 或者 false
+duoshuo_shortname: yusmile
+# Disqus Disqus插件，如果使用的话
+#disqus_shortname:

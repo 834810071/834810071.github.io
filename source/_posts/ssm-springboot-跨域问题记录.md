@@ -1,7 +1,8 @@
 ---
 title: ssm + springboot 跨域问题记录
 date: 2020-12-04 15:56:39
-tags:java web
+tags: java web
+categories: java web
 ---
 
 ### springboot 服务端解决跨域问题
@@ -25,6 +26,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 ```
 
 ### ssm + tomcat 解决跨域问题
+
+<!--more-->
+
 #### tomcat配置
 1. web.xml 过滤配置
  打开tomcat安装目录的conf目录，打开web.xml文件，然后在此文件的中间位置，大概460多行附近，粘贴如下代码到此文件
@@ -69,6 +73,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 ### idea tomcat 配置项目注意点
 
-1. ![image-20201204155825612](C:\Users\jxq\AppData\Roaming\Typora\typora-user-images\image-20201204155825612.png)
+1. ![Lena](ssm-springboot-跨域问题记录/0.png)
 
    【Run/Debug Configurations】 -> Deploment -> Application context: 设置为 / (如果项目名字为空的话)
