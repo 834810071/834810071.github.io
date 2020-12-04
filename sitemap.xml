@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://834810071.github.io/tags/index.html</loc>
+    <loc>https://834810071.github.io/categories/index.html</loc>
     
     <lastmod>2020-12-04</lastmod>
     
   </url>
   
   <url>
-    <loc>https://834810071.github.io/categories/index.html</loc>
+    <loc>https://834810071.github.io/tags/index.html</loc>
     
     <lastmod>2020-12-04</lastmod>
     
@@ -26,6 +26,13 @@
     <loc>https://834810071.github.io/2020/12/04/hello-world/</loc>
     
     <lastmod>2020-12-04</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://834810071.github.io/404/index.html</loc>
+    
+    <lastmod>2020-03-25</lastmod>
     
   </url>
   
