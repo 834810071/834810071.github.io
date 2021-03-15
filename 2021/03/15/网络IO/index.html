@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++ 网络编程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Personal essay" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="网络IO发展大致分为如下几个阶段 阻塞IO (BIO) 非阻塞IO (NIO) IO多路复用 （select&#x2F;poll&#x2F;epoll） 异步IO (AIO) —信号驱动   网络的两个阶段 第一阶段：硬件接口到内核态 第二阶段：内核态到用户态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络IO">
+<meta property="og:url" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/index.html">
+<meta property="og:site_name" content="Personal essay">
+<meta property="og:description" content="网络IO发展大致分为如下几个阶段 阻塞IO (BIO) 非阻塞IO (NIO) IO多路复用 （select&#x2F;poll&#x2F;epoll） 异步IO (AIO) —信号驱动   网络的两个阶段 第一阶段：硬件接口到内核态 第二阶段：内核态到用户态">
+<meta property="og:locale">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/0.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/1.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/2.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/3.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/4.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/5.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/6.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/7.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/8.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/9.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/10.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/11.jpg">
+<meta property="og:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/12.jpg">
+<meta property="article:published_time" content="2021-03-15T02:40:29.000Z">
+<meta property="article:modified_time" content="2021-03-15T08:49:35.234Z">
+<meta property="article:author" content="20152021">
+<meta property="article:tag" content="C++ 网络编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/0.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://834810071.github.io/2021/03/15/网络IO/"/>
+
+
+
+
+
+  <title>网络IO | Personal essay</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Personal essay</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人记录</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/test1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal essay">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网络IO</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-15T10:40:29+08:00">
+                2021-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">C++ 网络编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+		
+		  <span class="post-meta-divider">|</span>
+		  <span id="busuanzi_value_page_pv"></span>次阅读
+		
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/0.jpg" alt="Linux网络编程"></p>
+<h3 id="网络IO发展大致分为如下几个阶段"><a href="#网络IO发展大致分为如下几个阶段" class="headerlink" title="网络IO发展大致分为如下几个阶段"></a>网络IO发展大致分为如下几个阶段</h3><ul>
+<li>阻塞IO (<strong>BIO</strong>)</li>
+<li>非阻塞IO (<strong>NIO</strong>)</li>
+<li>IO多路复用 （<strong>select/poll/epoll</strong>）</li>
+<li>异步IO (<strong>AIO</strong>)</li>
+<li>—信号驱动</li>
+</ul>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/1.jpg" alt="网络IO的演变过程"></p>
+<h4 id="网络的两个阶段"><a href="#网络的两个阶段" class="headerlink" title="网络的两个阶段"></a>网络的两个阶段</h4><ul>
+<li><strong>第一阶段：硬件接口到内核态</strong></li>
+<li><strong>第二阶段：内核态到用户态</strong></li>
+</ul>
+<a id="more"></a>
+
+<p>​    对于两台计算机而言，要进行网络通信，其数据都是先从应用程序传递到传输层(TCP/UDP)到达内核态，然后再到网络层、数据链路层、物理层，接着数据传递到硬件网卡，最后通过网络传输介质传递到对端机器的网卡，然后再一步一步数据从网卡传递到内核态，最后再拷贝到用户态。</p>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/2.jpg" alt="网络IO的两个阶段"></p>
+<h4 id="阻塞-IO-和非阻塞-IO-的区别"><a href="#阻塞-IO-和非阻塞-IO-的区别" class="headerlink" title="阻塞 IO 和非阻塞 IO 的区别"></a><strong>阻塞 IO 和非阻塞 IO 的区别</strong></h4><p>​    把从<strong>硬件到内核态</strong>这一阶段，是否发生阻塞等待，可以将网络分为<strong>阻塞 IO</strong>和<strong>非阻塞 IO</strong>。如果用户发起了读写请求，但内核态数据还未准备就绪，该阶段不会阻塞用户操作，内核立马返回，则称为非阻塞 IO。如果该阶段一直阻塞用户操作。直到内核态数据准备就绪，才返回。这种方式称为阻塞 IO。</p>
+<p>​    因此，区分阻塞 IO 和非阻塞 IO 主要看第一阶段是否阻塞用户操作。</p>
+<h4 id="同步-IO-和异步-IO-的区别"><a href="#同步-IO-和异步-IO-的区别" class="headerlink" title="同步 IO 和异步 IO 的区别"></a><strong>同步 IO 和异步 IO 的区别</strong></h4><p>​    数据的传递需要两个阶段，在此处只要任何一个阶段会阻塞用户请求，都将其称为同步 IO，两个阶段都不阻塞，则称为异步 IO。</p>
+<p>​    在目前所有的操作系统中，linux 中的 epoll、mac 的 kqueue 都属于同步 IO，因为其在第二阶段(数据从内核态到用户态)都会发生拷贝阻塞。 而只有 windows 中的 <strong>IOCP</strong> 才真正属于异步 IO，即 AIO。</p>
+<h3 id="阻塞-IO"><a href="#阻塞-IO" class="headerlink" title="阻塞 IO"></a><strong>阻塞 IO</strong></h3><ul>
+<li>阻塞 IO 主要指的是第一阶段(硬件网卡到内核态)。</li>
+</ul>
+<h4 id="阻塞IO概念"><a href="#阻塞IO概念" class="headerlink" title="阻塞IO概念"></a>阻塞IO概念</h4><ul>
+<li>阻塞 IO，顾名思义当用户发生了系统调用后，如果数据未从网卡到达内核态，内核态数据未准备好，此时会一直阻塞。直到数据就绪，然后从内核态拷贝到用户态再返回</li>
+</ul>
+<h4 id="阻塞-IO-的过程"><a href="#阻塞-IO-的过程" class="headerlink" title="阻塞 IO 的过程"></a><strong>阻塞 IO 的过程</strong></h4><p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/3.jpg" alt="阻塞IO过程"></p>
+<h4 id="阻塞-IO-的缺点"><a href="#阻塞-IO-的缺点" class="headerlink" title="阻塞 IO 的缺点"></a><strong>阻塞 IO 的缺点</strong></h4><p>在一般使用阻塞 IO 时，都需要配置多线程来使用，最常见的模型是<strong>阻塞 IO+多线程</strong>，每个连接一个单独的线程进行处理。</p>
+<p><strong>我们知道，一般一个程序可以开辟的线程是优先的，而且开辟线程的开销也是比较大的。也正是这种方式，会导致一个应用程序可以处理的客户端请求受限。面对百万连接的情况，是无法处理。</strong></p>
+<h3 id="非阻塞-IO"><a href="#非阻塞-IO" class="headerlink" title="非阻塞 IO"></a>非阻塞 IO</h3><ul>
+<li>非阻塞 IO 是为了解决前面提到的阻塞 IO 的缺陷而引出的</li>
+</ul>
+<h4 id="非阻塞-IO-的概念"><a href="#非阻塞-IO-的概念" class="headerlink" title="非阻塞 IO 的概念"></a><strong>非阻塞 IO 的概念</strong></h4><p>​        非阻塞 IO：见名知意，就是在第一阶段(网卡-内核态)数据未到达时不等待，然后直接返回。因此非阻塞 IO 需要不断的用户发起请求，询问内核数据好了没，好了没。</p>
+<h4 id="非阻塞-IO-的过程"><a href="#非阻塞-IO-的过程" class="headerlink" title="非阻塞 IO 的过程"></a>非阻塞 IO 的过程</h4><p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/4.jpg" alt="非阻塞IO过程"></p>
+<h4 id="非阻塞-IO-的优点"><a href="#非阻塞-IO-的优点" class="headerlink" title="非阻塞 IO 的优点"></a><strong>非阻塞 IO 的优点</strong></h4><ul>
+<li>非阻塞 IO 解决了阻塞 IO<strong>每个连接一个线程处理的问题</strong>，所以其最大的优点就是 <strong>一个线程可以处理多个连接</strong>，这也是其非阻塞决定的。</li>
+</ul>
+<h4 id="非阻塞-IO-的缺点"><a href="#非阻塞-IO-的缺点" class="headerlink" title="非阻塞 IO 的缺点"></a><strong>非阻塞 IO 的缺点</strong></h4><ul>
+<li>需要用户多次发起系统调用。<strong>频繁的系统调用</strong>是比较消耗系统资源的。</li>
+<li>解决问题：<strong>保留非阻塞 IO 的优点的前提下，减少系统调用</strong></li>
+</ul>
+<h3 id="select-poll-IO多路复用"><a href="#select-poll-IO多路复用" class="headerlink" title="select/poll IO多路复用"></a>select/poll IO多路复用</h3><p>​    <strong>多路复用主要复用的是通过有限次的系统调用来实现管理多个网络连接。最简单来说，我目前有 10 个连接，我可以通过一次系统调用将这 10 个连接都丢给内核，让内核告诉我，哪些连接上面数据准备好了，然后我再去读取每个就绪的连接上的数据。因此，IO 多路复用，复用的是系统调用。通过有限次系统调用判断海量连接是否数据准备好了</strong></p>
+<ul>
+<li><p><strong>select</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// readfds:关心读的fd集合；writefds：关心写的fd集合；excepttfds：异常的fd集合</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span> <span class="params">(<span class="keyword">int</span> n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<blockquote>
+<p>select 函数监视的文件描述符分 3 类，分别是 writefds、readfds、和 exceptfds。调用后 select 函数会阻塞，直到有描述副就绪（有数据 可读、可写、或者有 except），或者超时（timeout 指定等待时间，如果立即返回设为 null 即可），函数返回。当 select 函数返回后，可以 通过遍历 fdset，来找到就绪的描述符。</p>
+</blockquote>
+<blockquote>
+<p>select 目前几乎在所有的平台上支持，其良好跨平台支持也是它的一个优点。select 的一 个缺点在于单个进程能够监视的文件描述符的数量存在最大限制，在 Linux 上一般为 1024，可以通过修改宏定义甚至重新编译内核的方式提升这一限制，但 是这样也会造成效率的降低。</p>
+</blockquote>
+<ul>
+<li><p><strong>poll</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poll</span> <span class="params">(struct pollfd *fds, <span class="keyword">unsigned</span> <span class="keyword">int</span> nfds, <span class="keyword">int</span> timeout)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fd; <span class="comment">/* file descriptor */</span></span><br><span class="line">    <span class="keyword">short</span> events; <span class="comment">/* requested events to watch */</span></span><br><span class="line">    <span class="keyword">short</span> revents; <span class="comment">/* returned events witnessed */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<blockquote>
+<p>pollfd 结构包含了要监视的 event 和发生的 event，不再使用 select“参数-值”传递的方式。同时，pollfd 并没有最大数量限制（但是数量过大后性能也是会下降）。 和 select 函数一样，poll 返回后，需要轮询 pollfd 来获取就绪的描述符。</p>
+<p>从上面看，select 和 poll 都需要在返回后，通过遍历文件描述符来获取已经就绪的 socket。事实上，同时连接的大量客户端在一时刻可能只有很少的处于就绪状态，因此随着监视的描述符数量的增长，其效率也会线性下降。</p>
+</blockquote>
+<ul>
+<li><strong>从本质来说：IO 多路复用中，select()/poll()/epoll_wait()这几个函数对应第一阶段；read()/recvfrom()对应第二阶段</strong></li>
+</ul>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/5.jpg" alt="IO多路复用"></p>
+<h4 id="select-poll-IO多路复用的优点"><a href="#select-poll-IO多路复用的优点" class="headerlink" title="select/poll IO多路复用的优点"></a>select/poll IO多路复用的优点</h4><p>​    <strong>IO 多路复用，主要在于复用，通过 select()或者 poll()将多个 socket fds 批量通过系统调用传递给内核，由内核进行循环遍历判断哪些 fd 上数据就绪了，然后将就绪的 readyfds 返回给用户。再由用户进行挨个遍历就绪好的 fd，读取或者写入数据。</strong></p>
+<p>​    <strong>所以通过 IO 多路复用+非阻塞 IO，一方面降低了系统调用次数，另一方面可以用极少的线程来处理多个网络连接。</strong></p>
+<h4 id="select-poll-IO多路复用的缺点"><a href="#select-poll-IO多路复用的缺点" class="headerlink" title="select/poll IO多路复用的缺点"></a>select/poll IO多路复用的缺点</h4><p>​    <strong>用户需要每次将海量的 socket fds 集合从用户态传递到内核态，让内核态去检测哪些网络连接数据就绪了</strong></p>
+<p>​    <strong>但这个地方会出现频繁的将海量 fd 集合从用户态传递到内核态，再从内核态拷贝到用户态。 所以，这个地方开销也挺大。</strong></p>
+<h4 id="select-poll-的区别"><a href="#select-poll-的区别" class="headerlink" title="select poll 的区别"></a>select poll 的区别</h4><ol>
+<li>select 能处理的最大连接，默认是 1024 个，可以通过修改配置来改变，但终究是有限个；而 poll 理论上可以支持无限个</li>
+<li>select 和 poll 在管理海量的连接时，会频繁的从用户态拷贝到内核态，比较消耗资源。</li>
+</ol>
+<h3 id="epoll-IO多路复用"><a href="#epoll-IO多路复用" class="headerlink" title="epoll IO多路复用"></a>epoll IO多路复用</h3><ul>
+<li><strong>epoll</strong></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建epollFd，底层是在内核态分配一段区域，底层数据结构红黑树+双向链表</span></span><br><span class="line">int epoll_create(int size)；//创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大</span><br><span class="line"></span><br><span class="line"><span class="comment">//往红黑树中增加、删除、更新管理的socket fd</span></span><br><span class="line">int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</span><br><span class="line"></span><br><span class="line"><span class="comment">//这个api是用来在第一阶段阻塞，等待就绪的fd。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event * events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> <span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>;</span><br><span class="line">创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大，这个参数不同于select()中的第一个参数，给出最大监听的fd+<span class="number">1</span>的值，参数size并不是限制了epoll所能监听的描述符最大个数，只是对内核初始分配内部数据结构的一个建议。</span><br><span class="line">当创建好epoll句柄后，它就会占用一个fd值，在linux下如果查看/proc/进程id/fd/，是能够看到这个fd的，所以在使用完epoll后，必须调用close()关闭，否则可能导致fd被耗尽。</span><br><span class="line"></span><br><span class="line">2. int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</span><br><span class="line">函数是对指定描述符fd执行op操作。</span><br><span class="line">- epfd：是epoll_create()的返回值。</span><br><span class="line">- op：表示op操作，用三个宏来表示：添加EPOLL_CTL_ADD，删除EPOLL_CTL_DEL，修改EPOLL_CTL_MOD。分别添加、删除和修改对fd的监听事件。</span><br><span class="line">- fd：是需要监听的fd（文件描述符）</span><br><span class="line">- epoll_event：是告诉内核需要监听什么事，<span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span>结构如下：</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> &#123;</span></span><br><span class="line">  <span class="keyword">__uint32_t</span> events;  <span class="comment">/* Epoll events */</span></span><br><span class="line">  <span class="keyword">epoll_data_t</span> data;  <span class="comment">/* User data variable */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//events可以是以下几个宏的集合：</span></span><br><span class="line">EPOLLIN ：表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；</span><br><span class="line">EPOLLOUT：表示对应的文件描述符可以写；</span><br><span class="line">EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；</span><br><span class="line">EPOLLERR：表示对应的文件描述符发生错误；</span><br><span class="line">EPOLLHUP：表示对应的文件描述符被挂断；</span><br><span class="line">EPOLLET： 将EPOLL设为边缘触发(Edge Triggered)模式，这是相对于水平触发(Level Triggered)来说的。</span><br><span class="line">EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> <span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event * events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br><span class="line">等待epfd上的io事件，最多返回maxevents个事件。</span><br><span class="line">参数events用来从内核得到事件的集合，maxevents告之内核这个events有多大，这个maxevents的值不能大于创建epoll_create()时的size，参数timeout是超时时间（毫秒，<span class="number">0</span>会立即返回，<span class="number">-1</span>将不确定，也有说法说是永久阻塞）。该函数返回需要处理的事件数目，如返回<span class="number">0</span>表示已超时。</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="epoll-工作模式"><a href="#epoll-工作模式" class="headerlink" title="epoll 工作模式"></a>epoll 工作模式</h4><ul>
+<li>epoll 对文件描述符的操作有两种模式：LT（level trigger）和 ET（edge trigger）</li>
+<li>LT 模式：当 epoll_wait 检测到描述符事件发生并将此事件通知应用程序，应用程序可以不立即处理该事件。下次调用 epoll_wait 时，会再次响应应用程序并通知此事件。 </li>
+<li>ET 模式：当 epoll_wait 检测到描述符事件发生并将此事件通知应用程序，应用程序必须立即处理该事件。如果不处理，下次调用 epoll_wait 时，不会再次响应应用程序并通知此事件。</li>
+</ul>
+<ol>
+<li><p>LT 模式</p>
+<p>​    LT(level triggered)是缺省的工作方式，并且同时支持 block 和 no-block socket.在这种做法中，内核告诉你一个文件描述符是否就绪了，然后你可以对这个就绪的 fd 进行 IO 操作。如果你不作任何操作，内核还是会继续通知你的。</p>
+</li>
+<li><p>ET 模式</p>
+<p>​    ET(edge-triggered)是高速工作方式，只支持 no-block socket。在这种模式下，当描述符从未就绪变为就绪时，内核通过 epoll 告诉你。然后它会假设你知道文件描述符已经就绪，并且不会再为那个文件描述符发送更多的就绪通知，直到你做了某些操作导致那个文件描述符不再为就绪状态了(比如，你在发送，接收或者接收请求，或者发送接收的数据少于一定量时导致了一个 EWOULDBLOCK 错误）。但是请注意，如果一直不对这个 fd 作 IO 操作(从而导致它再次变成未就绪)，内核不会发送更多的通知(only once)</p>
+<p>​    ET 模式在很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。epoll 工作在 ET 模式的时候，必须使用非阻塞套接口，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。</p>
+</li>
+<li><p>当 epoll_wait()调用后会阻塞，然后完了当返回时，会返回了哪些 fd 的数据就绪了，用户只需要遍历就绪的 fd 进行读写即可。</p>
+</li>
+</ol>
+<h4 id="epoll多路复用优点"><a href="#epoll多路复用优点" class="headerlink" title="epoll多路复用优点"></a>epoll多路复用优点</h4><p>​    一开始就在内核态分配了一段空间，来存放管理的 fd,所以在每次连接建立后，交给 epoll 管理时，需要将其添加到原先分配的空间中，后面再管理时就不需要频繁的从用户态拷贝管理的 fd 集合。通通过这种方式大大的提升了性能。</p>
+<p>​    所以现在的 IO 多路复用主要指 epoll</p>
+<h3 id="异步-IO"><a href="#异步-IO" class="headerlink" title="异步 IO"></a><strong>异步 IO</strong></h3><p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/6.jpg" alt="异步IO"></p>
+<p>​    异步 IO 指：<strong>内核态拷贝数据到用户态这种方式也是交给系统线程来实现，不由用户线程完成</strong>，目前只有 windows 系统的 IOCP 是属于异步 IO。</p>
+<h3 id="网络IO模型"><a href="#网络IO模型" class="headerlink" title="网络IO模型"></a>网络IO模型</h3><h4 id="reactor模型"><a href="#reactor模型" class="headerlink" title="reactor模型"></a>reactor模型</h4><p><strong>1. 单 reactor 单线程模型</strong></p>
+<p>此种模型，通常是只有一个 epoll 对象，所有的<strong>接收客户端连接</strong>、<strong>客户端读取</strong>、<strong>客户端写入</strong>操作都包含在一个线程内。该种模型也有一些中间件在用，比如 redis.</p>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/7.jpg" alt="单reactor单线程模型"></p>
+<blockquote>
+<p>但在目前的单线程 Reactor 模式中，不仅 I/O 操作在该 Reactor 线程上，连非 I/O 的业务操作也在该线程上进行处理了，这可能会大大延迟 I/O 请求的响应。所以我们应该将非 I/O 的业务逻辑操作从 Reactor 线程上卸载，以此来加速 Reactor 线程对 I/O 请求的响应。</p>
+</blockquote>
+<p><strong>2. 单 reactor 多线程模型</strong></p>
+<p>该模型主要是通过将，前面的模型进行改造，将读写的业务逻辑交给具体的线程池来实现，这样可以显示 reactor 线程对 IO 的响应，以此提升系统性能。</p>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/8.jpg" alt="单reactor多线程模型"></p>
+<blockquote>
+<p>在工作者线程池模式中，虽然非 I/O 操作交给了线程池来处理，但是所有的 I/O 操作依然由 Reactor 单线程执行，在高负载、高并发或大数据量的应用场景，依然较容易成为瓶颈。所以，对于 Reactor 的优化，又产生出下面的多线程模式。</p>
+</blockquote>
+<p><strong>3. multi-reactor 多线程模型</strong></p>
+<p>在这种模型中，主要分为两个部分：mainReactor、subReactors。 mainReactor 主要负责接收客户端的连接，然后将建立的客户端连接通过负载均衡的方式分发给 subReactors，</p>
+<p>subReactors 来负责具体的每个连接的读写</p>
+<p>对于非 IO 的操作，依然交给工作线程池去做，对逻辑进行解耦</p>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/9.jpg" alt="单reactor多线程模型"></p>
+<blockquote>
+<p>mainReactor 对应 Netty 中配置的 BossGroup 线程组，主要负责接受客户端连接的建立。一般只暴露一个服务端口，BossGroup 线程组一般一个线程工作即可 subReactor 对应 Netty 中配置的 WorkerGroup 线程组，BossGroup 线程组接受并建立完客户端的连接后，将网络 socket 转交给 WorkerGroup 线程组，然后在 WorkerGroup 线程组内选择一个线程，进行 I/O 的处理。WorkerGroup 线程组主要处理 I/O，一般设置 2*CPU 核数个线程</p>
+</blockquote>
+<p><strong>4. multi-reactor 多进程模型</strong></p>
+<h4 id="Proactor模式"><a href="#Proactor模式" class="headerlink" title="Proactor模式"></a>Proactor模式</h4><p>​    流程与Reactor模式类似，区别在于proactor在IO ready事件触发后，完成IO操作再通知应用回调。虽然在linux平台还是基于epoll/select，但是内部实现了异步操作处理器(Asynchronous Operation Processor)以及异步事件分离器(Asynchronous Event Demultiplexer)将IO操作与应用回调隔离。经典应用例如boost asio异步IO库的结构和流程图如下：</p>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/10.jpg" alt="Proactor模型"></p>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/11.jpg" alt="Proactor模型"></p>
+<p>Reactor模式中，用户线程通过向Reactor对象注册感兴趣的事件监听，然后事件触发时调用事件处理函数。而Proactor模式中，用户线程将AsynchronousOperation（读/写等）、Proactor以及操作完成时的CompletionHandler注册到AsynchronousOperationProcessor。</p>
+<p>AsynchronousOperationProcessor使用Facade模式提供了一组异步操作API（读/写等）供用户使用，当用户线程调用异步API后，便继续执行自己的任务。AsynchronousOperationProcessor 会开启独立的内核线程执行异步操作，实现真正的异步。当异步IO操作完成时，AsynchronousOperationProcessor将用户线程与AsynchronousOperation一起注册的Proactor和CompletionHandler取出，然后将CompletionHandler与IO操作的结果数据一起转发给Proactor，Proactor负责回调每一个异步操作的事件完成处理函数handle_event。虽然Proactor模式中每个异步操作都可以绑定一个Proactor对象，但是一般在操作系统中，Proactor被实现为Singleton模式，以便于集中化分发操作完成事件。</p>
+<p><img src="/2021/03/15/%E7%BD%91%E7%BB%9CIO/12.jpg" alt="Proactor模型"></p>
+<h4 id="Reactor模式和Proactor模式的总结对比"><a href="#Reactor模式和Proactor模式的总结对比" class="headerlink" title="Reactor模式和Proactor模式的总结对比"></a>Reactor模式和Proactor模式的总结对比</h4><ul>
+<li><p>主动和被动： </p>
+<ul>
+<li><p>Reactor将handler放到select()，等待可写就绪，然后调用write()写入数据；写完数据后再处理后续逻辑；</p>
+</li>
+<li><p>Proactor调用aoi_write后立刻返回，由内核负责写操作，写完后调用相应的回调函数处理后续逻辑</p>
+</li>
+<li><p><strong>Reactor模式是一种被动的处理</strong>，即有事件发生时被动处理。而<strong>Proator模式则是主动发起异步调用</strong>，然后循环检测完成事件。</p>
+</li>
+</ul>
+</li>
+<li><p>实现</p>
+<ul>
+<li>Reactor实现了一个被动的事件分离和分发模型，服务等待请求事件的到来，再通过不受间断的同步处理事件，从而做出反应；</li>
+<li>Proactor实现了一个主动的事件分离和分发模型；这种设计允许多个任务并发的执行，从而提高吞吐量。</li>
+<li>所以涉及到文件I/O或耗时I/O可以使用Proactor模式，或使用多线程模拟实现异步I/O的方式。</li>
+</ul>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>Reactor实现相对简单，对于链接多，但耗时短的处理场景高效；</li>
+<li>操作系统可以在多个事件源上等待，并且避免了线程切换的性能开销和编程复杂性；</li>
+<li>事件的串行化对应用是透明的，可以顺序的同步执行而不需要加锁；</li>
+<li>事务分离：将与应用无关的多路复用、分配机制和与应用相关的回调函数分离开来。</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>Reactor处理耗时长的操作会造成事件分发的阻塞，影响到后续事件的处理；</li>
+<li>Proactor实现逻辑复杂；依赖操作系统对异步的支持，目前实现了纯异步操作的操作系统少，实现优秀的如windows IOCP，但由于其windows系统用于服务器的局限性，目前应用范围较小；而Unix/Linux系统对纯异步的支持有限，应用事件驱动的主流还是通过select/epoll来实现。</li>
+</ul>
+</li>
+<li><p>使用场景：</p>
+<ul>
+<li>Reactor：同时接收多个服务请求，并且依次同步的处理它们的事件驱动程序；</li>
+<li>Proactor：异步接收和同时处理多个服务请求的事件驱动程序。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag"># C++ 网络编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/04/ssm-springboot-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="next" title="ssm + springboot 跨域问题记录">
+                <i class="fa fa-chevron-left"></i> ssm + springboot 跨域问题记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/test1.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+			
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9CIO%E5%8F%91%E5%B1%95%E5%A4%A7%E8%87%B4%E5%88%86%E4%B8%BA%E5%A6%82%E4%B8%8B%E5%87%A0%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="nav-text">网络IO发展大致分为如下几个阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E4%B8%A4%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="nav-text">网络的两个阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E-IO-%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E-IO-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">阻塞 IO 和非阻塞 IO 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5-IO-%E5%92%8C%E5%BC%82%E6%AD%A5-IO-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">同步 IO 和异步 IO 的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E-IO"><span class="nav-text">阻塞 IO</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9EIO%E6%A6%82%E5%BF%B5"><span class="nav-text">阻塞IO概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E-IO-%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">阻塞 IO 的过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E-IO-%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-text">阻塞 IO 的缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E-IO"><span class="nav-text">非阻塞 IO</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E-IO-%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">非阻塞 IO 的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E-IO-%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">非阻塞 IO 的过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E-IO-%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-text">非阻塞 IO 的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E-IO-%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-text">非阻塞 IO 的缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select-poll-IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">select&#x2F;poll IO多路复用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#select-poll-IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-text">select&#x2F;poll IO多路复用的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#select-poll-IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-text">select&#x2F;poll IO多路复用的缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#select-poll-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">select poll 的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#epoll-IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">epoll IO多路复用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#epoll-%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-text">epoll 工作模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#epoll%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%BC%98%E7%82%B9"><span class="nav-text">epoll多路复用优点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5-IO"><span class="nav-text">异步 IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B"><span class="nav-text">网络IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#reactor%E6%A8%A1%E5%9E%8B"><span class="nav-text">reactor模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proactor%E6%A8%A1%E5%BC%8F"><span class="nav-text">Proactor模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reactor%E6%A8%A1%E5%BC%8F%E5%92%8CProactor%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-text">Reactor模式和Proactor模式的总结对比</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">20152021</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
