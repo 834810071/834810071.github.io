@@ -6,7 +6,7 @@
   <link href="https://834810071.github.io/atom.xml" rel="self"/>
   
   <link href="https://834810071.github.io/"/>
-  <updated>2021-03-15T08:49:35.234Z</updated>
+  <updated>2021-03-17T01:50:36.526Z</updated>
   <id>https://834810071.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Http和Https网络协议</title>
+    <link href="https://834810071.github.io/2021/03/16/Http%E5%92%8CHttps%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/"/>
+    <id>https://834810071.github.io/2021/03/16/Http%E5%92%8CHttps%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/</id>
+    <published>2021-03-16T08:58:14.000Z</published>
+    <updated>2021-03-17T01:50:36.526Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;HTTP和HTTPS发展历史&quot;&gt;&lt;a href=&quot;#HTTP和HTTPS发展历史&quot; class=&quot;headerlink&quot; title=&quot;HTTP和HTTPS发展历史&quot;&gt;&lt;/a&gt;HTTP和HTTPS发展历史&lt;/h3&gt;&lt;h4 id=&quot;什么是HTTP&quot;&gt;&lt;a href=&quot;#什么是HTTP&quot; class=&quot;headerlink&quot; title=&quot;什么是HTTP?&quot;&gt;&lt;/a&gt;什么是HTTP?&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;超文本传输协议（英语：&lt;strong&gt;H&lt;/strong&gt;yper&lt;strong&gt;T&lt;/strong&gt;ext &lt;strong&gt;T&lt;/strong&gt;ransfer &lt;strong&gt;P&lt;/strong&gt;rotocol，缩写：&lt;strong&gt;HTTP&lt;/strong&gt;），是一个基于请求与响应，无状态的，应用层的协议，常基于TCP/IP协议传输数据，互联网上应用最为广泛的一种网络协议,所有的WWW文件都必须遵守这个标准。设计HTTP的初衷是为了提供一种发布和接收HTML页面的方法。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="计算机网络" scheme="https://834810071.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机网络" scheme="https://834810071.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>网络IO</title>
