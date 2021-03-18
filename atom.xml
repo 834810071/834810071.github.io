@@ -42,22 +42,11 @@
     <link href="https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/"/>
     <id>https://834810071.github.io/2021/03/15/%E7%BD%91%E7%BB%9CIO/</id>
     <published>2021-03-15T02:40:29.000Z</published>
-    <updated>2021-03-15T08:49:35.234Z</updated>
+    <updated>2021-03-18T03:25:15.322Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/03/15/%E7%BD%91%E7%BB%9CIO/0.jpg&quot; alt=&quot;Linux网络编程&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;网络IO发展大致分为如下几个阶段&quot;&gt;&lt;a href=&quot;#网络IO发展大致分为如下几个阶段&quot; class=&quot;headerlink&quot; title=&quot;网络IO发展大致分为如下几个阶段&quot;&gt;&lt;/a&gt;网络IO发展大致分为如下几个阶段&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;阻塞IO (&lt;strong&gt;BIO&lt;/strong&gt;)&lt;/li&gt;
-&lt;li&gt;非阻塞IO (&lt;strong&gt;NIO&lt;/strong&gt;)&lt;/li&gt;
-&lt;li&gt;IO多路复用 （&lt;strong&gt;select/poll/epoll&lt;/strong&gt;）&lt;/li&gt;
-&lt;li&gt;异步IO (&lt;strong&gt;AIO&lt;/strong&gt;)&lt;/li&gt;
-&lt;li&gt;—信号驱动&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;/2021/03/15/%E7%BD%91%E7%BB%9CIO/1.jpg&quot; alt=&quot;网络IO的演变过程&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;网络的两个阶段&quot;&gt;&lt;a href=&quot;#网络的两个阶段&quot; class=&quot;headerlink&quot; title=&quot;网络的两个阶段&quot;&gt;&lt;/a&gt;网络的两个阶段&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;第一阶段：硬件接口到内核态&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;第二阶段：内核态到用户态&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;</summary>
+&lt;h3 id=&quot;最基本的-Socket-模型&quot;&gt;&lt;a href=&quot;#最基本的-Socket-模型&quot; class=&quot;headerlink&quot; title=&quot;最基本的 Socket 模型&quot;&gt;&lt;/a&gt;最基本的 Socket 模型&lt;/h3&gt;</summary>
     
     
     
