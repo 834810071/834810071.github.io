@@ -122,7 +122,7 @@
             S.Drawing.init('.canvas');
             document.body.classList.add('body--ready');
             //想说的话
-            S.UI.simulate("亲爱的|生日快乐哟|#countdown 3|#rectangle 15x15|#circle 12 |#time");
+            S.UI.simulate("亲|爱|的|生|日|快|乐|哟|#countdown 3|#rectangle 15x15|#circle 12 |#time");
             S.Drawing.loop(function () {
                 S.Shape.render();
             });
@@ -156,8 +156,8 @@
                 requestFrame.call(window, this.loop.bind(this));
             },
             adjustCanvas: function () {
-                canvas.width = window.innerWidth - 100;
-                canvas.height = window.innerHeight - 30;
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             },
             clearFrame: function () {
                 context.clearRect(0, 0, canvas.width, canvas.height);
